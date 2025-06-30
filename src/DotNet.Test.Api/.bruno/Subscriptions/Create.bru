@@ -1,0 +1,30 @@
+meta {
+  name: Create
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/subscriptions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "accountId": "acc_12345",
+    "type": "premium",
+    "status": "active",
+    "payer": {
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "taxId": "12345678900",
+      "mobile": "+5511987654321"
+    },
+    "availablePaymentMethods": [
+      "credit_card",
+      "pix"
+    ],
+    "intervalMultiplier": 1
+  }
+}

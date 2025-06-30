@@ -1,0 +1,8 @@
+{
+  "version": "1",
+  "name": "DotNet.Test.Api",
+  "type": "collection",
+  "ignore": [
+    ".git"
+  ]
+}

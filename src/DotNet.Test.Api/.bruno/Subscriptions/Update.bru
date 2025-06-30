@@ -1,0 +1,34 @@
+meta {
+  name: Update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{base_url}}/subscriptions/:id
+  body: json
+  auth: none
+}
+
+params:path {
+  id: asd
+}
+
+body:json {
+  {
+    "id": "asd",
+    "accountId": "acc_updated",
+    "type": "premium_plus",
+    "status": "inactive",
+    "payer": {
+      "name": "Jane Doe",
+      "email": "jane.doe@example.com",
+      "taxId": "00987654321",
+      "mobile": "+5511912345678"
+    },
+    "availablePaymentMethods": [
+      "bank_transfer"
+    ],
+    "intervalMultiplier": 3
+  }
+}
