@@ -13,3 +13,9 @@ var app = builder.Build();
 app.UseInjections(AssemblyMarker.Self);
 
 await app.RunAsync();
+
+app.MapPost("/subscriptions", DotNet.Test.Api.Subscriptions.App.Endpoints.CreateEndpoint.HandleAsync);
+app.MapGet("/subscriptions/{id}", DotNet.Test.Api.Subscriptions.App.Endpoints.FindByIdEndpoint.HandleAsync);
+app.MapPut("/subscriptions/{id}", DotNet.Test.Api.Subscriptions.App.Endpoints.UpdateEndpoint.HandleAsync);
+app.MapDelete("/subscriptions/{id}", DotNet.Test.Api.Subscriptions.App.Endpoints.DeleteEndpoint.HandleAsync);
+

@@ -12,5 +12,9 @@ public class SubscriptionModule : IServiceModuleSetup
     {
         services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
         services.AddScoped<IFindAllHandler, FindAllHandler>();
+        services.AddScoped<ICreateSubscriptionHandler, CreateSubscriptionHandler>();
+        services.AddScoped<IFindByIdHandler, FindByIdHandler>();
+        services.AddScoped<IUpdateSubscriptionHandler, UpdateSubscriptionHandler>();
+        services.AddScoped<IDeleteSubscriptionHandler, DeleteSubscriptionHandler>();
     }
 }
