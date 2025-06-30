@@ -8,6 +8,8 @@ builder.Configuration.AddEnvironmentVariables("SUBSCRIPTION_API_");
 
 builder.Services.AddInjections(builder.Configuration, AssemblyMarker.Self);
 
+builder.WebHost.UseKestrelHttpsConfiguration();
+
 var app = builder.Build();
 
 app.UseInjections(AssemblyMarker.Self);
