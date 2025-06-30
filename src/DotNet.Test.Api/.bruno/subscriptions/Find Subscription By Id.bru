@@ -1,0 +1,19 @@
+
+meta {
+  name: Find Subscription By Id
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/subscriptions/{{subscription_id}}
+  body: none
+  auth: none
+}
+
+vars {
+  base_url: http://localhost:5079
+  subscription_id: 
+}
+
+
