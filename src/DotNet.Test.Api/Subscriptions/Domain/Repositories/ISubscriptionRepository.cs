@@ -8,6 +8,6 @@ public interface ISubscriptionRepository
     Task AddAsync(Subscription subscription, CancellationToken cancellationToken);
     Task DeleteAsync(Subscription subscription, CancellationToken cancellationToken);
     ValueTask<IReadOnlyCollection<Subscription>> FindAllAsync(IFindAll request, CancellationToken cancellationToken);
-    Task<Subscription> FindByIdAsync(string id, CancellationToken cancellationToken);
+    Task<Subscription?> FindByIdAsync(string id, CancellationToken cancellationToken);
     Task UpdateAsync(Subscription subscription, CancellationToken cancellationToken);
 }

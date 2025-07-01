@@ -31,6 +31,7 @@ public class SubscriptionEFMapping : IEntityTypeConfiguration<Subscription>
             .IsRequired();
         builder.Property(x => x.Type)
             .HasColumnType(nameof(SqlDbType.VarChar))
+            .HasColumnName("type")
             .HasMaxLength(20)
             .IsRequired();
         builder.Property(x => x.SelectedPaymentMethod)
@@ -66,6 +67,10 @@ public class SubscriptionEFMapping : IEntityTypeConfiguration<Subscription>
             .HasMaxLength(36);
         builder.Property(x => x.IntervalMultiplier)
             .HasColumnType(nameof(SqlDbType.Int))
+            .IsRequired();
+        builder.Property(x => x.IntervalType)
+            .HasColumnType(nameof(SqlDbType.VarChar))
+            .HasMaxLength(20)
             .IsRequired();
         
         builder.HasMany(x => x.Items)

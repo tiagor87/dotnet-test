@@ -1,4 +1,5 @@
 using DotNet.Test.Api.Shared.ValueObjects;
+using DotNet.Test.Api.Subscriptions.Domain.Commands;
 
 using TheNoobs.AggregateRoot;
 
@@ -21,6 +22,8 @@ public interface ISubscriptionView
 
 public class Subscription : AggregateRoot<string>
 {
+    private object _intervalType;
+
     protected Subscription() : base(new Id())
     {
         AccountId = null!;
@@ -32,8 +35,23 @@ public class Subscription : AggregateRoot<string>
         AvailablePaymentMethods = null!;
         LastInvoiceId = null!;
         IntervalMultiplier = 0;
+        IntervalType = null!;
         Items = [];
     }
+
+    public Subscription(ICreateSubscription command) : this()
+    {
+        AccountId = command.AccountId;
+        CreatedAt = DateTime.UtcNow;
+        Status = command.Status;
+        Type = command.Type;
+        AvailablePaymentMethods = new PaymentMethods(command.AvailablePaymentMethods);
+        Payer = new Payer(command.Payer);
+        IntervalMultiplier = command.IntervalMultiplier;
+        IntervalType = command.IntervalType;
+        Items = command.Items.Select(x => new SubscriptionItem(this, x)).ToList();
+    }
+
 
     public string AccountId { get; private set; }
     public DateTime CreatedAt { get; private set; }
@@ -42,9 +60,11 @@ public class Subscription : AggregateRoot<string>
     public string? SelectedPaymentMethod { get; private set; }
     public virtual Payer? Payer { get; private set; }
     public PaymentMethods AvailablePaymentMethods { get; private set; }
-    public string? LastInvoiceId { get; private set; }
+    public string? LastInvoiceId { get; }
     public short IntervalMultiplier { get; private set; }
-    public virtual List<SubscriptionItem> Items { get; private set; }
+    public virtual List<SubscriptionItem> Items { get; }
+
+    public string IntervalType { get; }
 
     public ISubscriptionView ToView() => new SubscriptionView(this);
 
@@ -56,20 +76,6 @@ public class Subscription : AggregateRoot<string>
         Payer = payer;
         AvailablePaymentMethods = PaymentMethods.Create(string.Join(",", availablePaymentMethods));
         IntervalMultiplier = (short)intervalMultiplier;
-    }
-
-    public static Subscription Create(string accountId, string type, string status, Payer payer, string[] availablePaymentMethods, int intervalMultiplier)
-    {
-        var subscription = new Subscription
-        {
-            AccountId = accountId,
-            Type = type,
-            Status = status,
-            Payer = payer,
-            AvailablePaymentMethods = PaymentMethods.Create(string.Join(",", availablePaymentMethods)),
-            IntervalMultiplier = (short)intervalMultiplier
-        };
-        return subscription;
     }
 
     class SubscriptionView(Subscription subscription) : ISubscriptionView

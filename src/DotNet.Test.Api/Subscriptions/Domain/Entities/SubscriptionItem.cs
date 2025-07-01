@@ -1,4 +1,5 @@
 using DotNet.Test.Api.Shared.ValueObjects;
+using DotNet.Test.Api.Subscriptions.Domain.Commands;
 
 using TheNoobs.AggregateRoot;
 
@@ -28,7 +29,17 @@ public class SubscriptionItem : Entity<string>
         EndAt = null;
         DeletedAt = null;
     }
-    
+
+    public SubscriptionItem(Subscription subscription, ICreateSubscription.ICreateSubscriptionItem command) : this()
+    {
+        SubscriptionId = subscription.Id;
+        Name = command.Name;
+        Price = command.Price;
+        Currency = command.Currency;
+        CreatedAt = DateTimeOffset.UtcNow;
+        StartAt = DateTimeOffset.UtcNow;
+    }
+
     public string SubscriptionId { get; }
     public string Name { get; }
     public long Price { get; }
