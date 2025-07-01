@@ -22,8 +22,6 @@ public interface ISubscriptionView
 
 public class Subscription : AggregateRoot<string>
 {
-    private object _intervalType;
-
     protected Subscription() : base(new Id())
     {
         AccountId = null!;
