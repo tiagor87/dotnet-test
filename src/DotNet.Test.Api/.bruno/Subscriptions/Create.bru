@@ -12,8 +12,8 @@ post {
 
 body:json {
   {
-    "accountId": "acc_12345",
-    "type": "premium",
+    "accountId": "5ad5126f-e474-40d7-9287-f8382444fe37",
+    "type": "PREPAID",
     "status": "active",
     "payer": {
       "name": "John Doe",
@@ -25,6 +25,14 @@ body:json {
       "credit_card",
       "pix"
     ],
-    "intervalMultiplier": 1
+    "intervalMultiplier": 1,
+    "intervalType": "MONTHLY",
+    "items": [
+      {
+        "name": "item 1",
+        "currency": "BRL",
+        "price": 100
+      }
+    ]
   }
 }

@@ -1,4 +1,3 @@
-using DotNet.Test.Api.Shared.Commands;
 using DotNet.Test.Api.Subscriptions.Domain.Entities;
 using DotNet.Test.Api.Subscriptions.Domain.Repositories;
 

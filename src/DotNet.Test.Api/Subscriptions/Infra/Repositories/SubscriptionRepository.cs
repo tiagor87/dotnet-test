@@ -21,7 +21,7 @@ public class SubscriptionRepository : ISubscriptionRepository
         return await _context.Subscriptions.ToListAsync(cancellationToken);
     }
 
-    public async Task<Subscription> FindByIdAsync(string id, CancellationToken cancellationToken)
+    public async Task<Subscription?> FindByIdAsync(string id, CancellationToken cancellationToken)
     {
         return await _context.Subscriptions.FindAsync([id], cancellationToken);
     }

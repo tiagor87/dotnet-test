@@ -1,3 +1,5 @@
+using DotNet.Test.Api.Subscriptions.Domain.Commands;
+
 using TheNoobs.ValueObjects.Abstractions;
 
 namespace DotNet.Test.Api.Shared.ValueObjects;
@@ -19,6 +21,15 @@ public class Payer : ValueObject
         TaxId = null!;
         Mobile = null!;
     }
+
+    public Payer(ICreateSubscription.ICreatePayer command)
+    {
+        Name = command.Name;
+        Email = command.Email;
+        TaxId = command.TaxId;
+        Mobile = command.Mobile;
+    }
+    
     public string Name { get; }
     public string? Email { get; }
     public string? TaxId { get; }

@@ -2,13 +2,11 @@ using DotNet.Test.Api.Subscriptions.Domain.Commands;
 
 using Microsoft.AspNetCore.Mvc;
 
-using TheNoobs.DependencyInjection.Extensions.Modules.Abstractions;
-
 namespace DotNet.Test.Api.Subscriptions.App.Endpoints;
 
-public class FindAllEndpoint : IApplicationModuleSetup
+public static class FindAllEndpoint
 {
-    private static async ValueTask<IResult> FindAllAsync(
+    public static async ValueTask<IResult> HandleAsync(
         [FromServices] IFindAllHandler handler,
         [AsParameters] FindAllDto findAll,
         CancellationToken cancellationToken)
@@ -17,21 +15,9 @@ public class FindAllEndpoint : IApplicationModuleSetup
         return Results.Ok(subscriptions);
     }
     
-    public void Setup(IApplicationBuilder appBuilder)
-    {
-        if (appBuilder is not IEndpointRouteBuilder endpointRouteBuilder)
-        {
-            return;
-        }
-        
-        endpointRouteBuilder.MapGet("/subscriptions", FindAllAsync);
-    }
-
     public class FindAllDto : IFindAll
     {
-        [FromQuery]
-        public int? PageSize { get; init; } = 10;
-        [FromQuery]
-        public int? Page { get; init; } = 1;
+        [FromQuery] public int? PageSize { get; init; } = 10;
+        [FromQuery] public int? Page { get; init; } = 1;
     }
 }
